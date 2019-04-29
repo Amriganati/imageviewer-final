@@ -33,6 +33,7 @@ public class ImageViewer
     private JButton smallerButton;
     private JButton largerButton;
     private OFImage currentImage;
+    private JButton checkerButton;
     
     private List<Filter> filters;
     
@@ -170,7 +171,32 @@ public class ImageViewer
             frame.pack();
         }
     }
-    
+    private void checkerboard(){
+        if(currentImage != null) {
+            int width = currentImage.getWidth() / 2;
+            int height = currentImage.getHeight() / 2;
+            int offwidth = currentImage.getWidth() / 2;
+            int offheight = currentImage.getHeight() / 2;
+           
+            OFImage newImage = new OFImage(width, height);
+            
+            for(int y = 0; y < height; y++) {
+                for(int x = 0; x < width; x++) {
+                    newImage.setPixel(x, y, currentImage.getPixel(x * 2, y * 2));
+                }
+            }
+            
+            for(int y = 0; y < height; y++) {
+                for(int x = width; x < width; x++) {
+                    newImage.setPixel(x, y, currentImage.getPixel(x * 2, y * 2));
+                }
+            }
+            
+             currentImage = newImage;
+            imagePanel.setImage(currentImage);
+            frame.pack();
+        }
+    }
 
     /**
      * Make the current picture smaller.
@@ -234,6 +260,7 @@ public class ImageViewer
     {
         smallerButton.setEnabled(status);
         largerButton.setEnabled(status);
+        checkerButton.setEnabled(status);
     }
     
     
@@ -255,6 +282,10 @@ public class ImageViewer
         filterList.add(new GrayScaleFilter("Grayscale"));
         filterList.add(new EdgeFilter("Edge Detection"));
         filterList.add(new FishEyeFilter("Fish Eye"));
+        filterList.add(new RedChannel("Red Channel"));
+        filterList.add(new GreenChannel("Green Channel"));
+        filterList.add(new BlueChannel("Blue Channel"));
+        //filterList.add(new SoupBoiFilter("Soup Boi Filter"));
        
         return filterList;
     }
@@ -298,7 +329,11 @@ public class ImageViewer
         largerButton = new JButton("Larger");
         largerButton.addActionListener(e -> makeLarger());
         toolbar.add(largerButton);
-
+        
+        checkerButton = new JButton("CheckerBoard");
+        checkerButton.addActionListener(e -> checkerboard());
+        toolbar.add(checkerButton);
+        
         // Add toolbar into panel with flow layout for spacing
         JPanel flow = new JPanel();
         flow.add(toolbar);
