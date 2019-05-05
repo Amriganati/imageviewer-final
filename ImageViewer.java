@@ -171,6 +171,8 @@ public class ImageViewer
             frame.pack();
         }
     }
+    /**
+     * Antiquated code, left for learning/informative purposes
     private void checkerboard(){
         if(currentImage != null) {
             int width = currentImage.getWidth() / 2;
@@ -197,7 +199,7 @@ public class ImageViewer
             frame.pack();
         }
     }
-
+    */
     /**
      * Make the current picture smaller.
      */
@@ -260,7 +262,7 @@ public class ImageViewer
     {
         smallerButton.setEnabled(status);
         largerButton.setEnabled(status);
-        checkerButton.setEnabled(status);
+        //checkerButton.setEnabled(status);
     }
     
     
@@ -285,7 +287,7 @@ public class ImageViewer
         filterList.add(new RedChannel("Red Channel"));
         filterList.add(new GreenChannel("Green Channel"));
         filterList.add(new BlueChannel("Blue Channel"));
-        //filterList.add(new SoupBoiFilter("Soup Boi Filter"));
+        filterList.add(new SoupBoiFilter("Soup Boi Filter"));
        
         return filterList;
     }
@@ -330,9 +332,9 @@ public class ImageViewer
         largerButton.addActionListener(e -> makeLarger());
         toolbar.add(largerButton);
         
-        checkerButton = new JButton("CheckerBoard");
-        checkerButton.addActionListener(e -> checkerboard());
-        toolbar.add(checkerButton);
+        //checkerButton = new JButton("CheckerBoard");
+        //checkerButton.addActionListener(e -> checkerboard());
+        //toolbar.add(checkerButton);
         
         // Add toolbar into panel with flow layout for spacing
         JPanel flow = new JPanel();
